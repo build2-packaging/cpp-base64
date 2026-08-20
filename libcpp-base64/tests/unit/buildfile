@@ -1,0 +1,8 @@
+import libs = libcpp-base64%lib{cpp-base64}
+
+exe{driver}: cxx{test} $libs
+
+# test.cpp is UTF-8 (contains "René"). MSVC defaults to the system code page.
+#
+if ($cxx.class == 'msvc')
+  exe{driver}: cxx.coptions += /utf-8
