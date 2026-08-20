@@ -1,0 +1,27 @@
+--- test.cpp.orig	2026-08-20 17:17:59
++++ test.cpp	2026-08-20 19:44:48
+@@ -244,15 +244,21 @@
+  //
+  // Test the string_view interface (which required C++17)
+  //
+-    std::string_view sv_orig    = "foobarbaz";
+-    std::string_view sv_encoded = base64_encode(sv_orig);
++ // Keep the encode/decode results in std::string so the string_view
++ // arguments stay valid. Upstream assigned the temporaries directly to
++ // string_view, which dangles after the full expression.
++ //
++    std::string_view sv_orig = "foobarbaz";
++    std::string sv_encoded_s = base64_encode(sv_orig);
++    std::string_view sv_encoded = sv_encoded_s;
+ 
+     if (sv_encoded != "Zm9vYmFyYmF6") {
+        std::cout << "Failed to encode with string_view" << std::endl;
+        all_tests_passed = false;
+     }
+ 
+-    std::string_view sv_decoded = base64_decode(sv_encoded);
++    std::string sv_decoded_s = base64_decode(sv_encoded);
++    std::string_view sv_decoded = sv_decoded_s;
+ 
+     if (sv_decoded != sv_orig) {
+        std::cout << "Failed to decode with string_view" << std::endl;
