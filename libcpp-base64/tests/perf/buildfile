@@ -1,0 +1,3 @@
+import libs = libcpp-base64%lib{cpp-base64}
+
+exe{driver}: cxx{measure-time} $libs testscript

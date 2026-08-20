@@ -1,0 +1,3 @@
+# Timing lines go to stdout. Discard them and check the round-trip exit code.
+#
+$* 1>! == 0
