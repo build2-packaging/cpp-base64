@@ -1,34 +1,18 @@
-#include <sstream>
-#include <stdexcept>
+#include <cpp-base64/base64.h>
 
-#include <cpp-base64/cpp-base64.h>
+#include <string>
 
 #undef NDEBUG
 #include <cassert>
 
 int main ()
 {
-  using namespace std;
-  using namespace cpp_base64;
-
-  // Basics.
+  // Call non-inline entry points to check the public header install path
+  // and that symbols are exported from lib{cpp-base64}.
   //
-  {
-    ostringstream o;
-    say_hello (o, "World");
-    assert (o.str () == "Hello, World!\n");
-  }
+  std::string encoded (base64_encode (std::string ("abc"), false));
+  assert (encoded == "YWJj");
 
-  // Empty name.
-  //
-  try
-  {
-    ostringstream o;
-    say_hello (o, "");
-    assert (false);
-  }
-  catch (const invalid_argument& e)
-  {
-    assert (e.what () == string ("empty name"));
-  }
+  std::string decoded (base64_decode (encoded));
+  assert (decoded == "abc");
 }
