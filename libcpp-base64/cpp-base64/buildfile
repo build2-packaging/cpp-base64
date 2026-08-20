@@ -9,18 +9,32 @@ def{cpp-base64}: libul{cpp-base64}
 
 # Build options.
 #
-cxx.poptions =+ "-I$out_root" "-I$src_root"
+# $src_root makes <cpp-base64/base64.h> work. $src_base is the directory that
+# contains base64.h, so upstream TUs can keep #include "base64.h".
+#
+out_pfx     = [dir_path] $out_root/
+src_pfx     = [dir_path] $src_root/
+out_pfx_unq = [dir_path] $out_base/
+src_pfx_unq = [dir_path] $src_base/
+
+cxx.poptions =+ "-I$out_pfx" "-I$src_pfx" \
+                "-I$out_pfx_unq" "-I$src_pfx_unq"
 
 if ($cxx.target.system == 'mingw32')
   cxx.loptions += -Wl,--export-all-symbols
 
 # Export options.
 #
+# Dual inclusion: also support #include <base64.h>.
+#
 lib{cpp-base64}:
 {
-  cxx.export.poptions = "-I$out_root" "-I$src_root"
+  cxx.export.poptions = "-I$out_pfx" "-I$src_pfx" \
+                        "-I$out_pfx_unq" "-I$src_pfx_unq"
   cxx.export.libs = $intf_libs
 }
+
+lib{cpp-base64}: cxx.pkgconfig.include = include/ include/cpp-base64/
 
 # For pre-releases use the complete version to make sure they cannot
 # be used in place of another pre-release or the final version. See
