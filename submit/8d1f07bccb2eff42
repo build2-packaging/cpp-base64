@@ -1,0 +1,8 @@
+: 1
+name: libcpp-base64
+version: 2.0.0
+upstream-version: 2.rc.09
+language: c++
+project: cpp-base64
+summary: Base64 encoding and decoding C++ library
+license: Zlib
