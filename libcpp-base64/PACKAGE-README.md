@@ -1,7 +1,10 @@
-# libcpp-base64 - Base64 (C++)
+# libcpp-base64 - Base64 encoding and decoding C++ library
 
-This is a `build2` package for the [`<UPSTREAM-NAME>`](https://<UPSTREAM-URL>)
-C++ library. It provides <SUMMARY-OF-FUNCTIONALITY>.
+This is a `build2` package for the [`cpp-base64`](https://github.com/ReneNyffenegger/cpp-base64)
+C++ library. It provides Base64 encoding and decoding, including URL-safe,
+PEM, and MIME variants. C++17 adds `std::string_view` overloads. The package
+version `2.0.0-b.9` corresponds to upstream `2.rc.09`. The documented include
+is `#include <cpp-base64/base64.h>`.
 
 
 ## Usage
@@ -10,13 +13,13 @@ To start using `libcpp-base64` in your project, add the following `depends`
 value to your `manifest`, adjusting the version constraint as appropriate:
 
 ```
-depends: libcpp-base64 ^<VERSION>
+depends: libcpp-base64 ^2.0.0-b.9
 ```
 
 Then import the library in your `buildfile`:
 
 ```
-import libs = libcpp-base64%lib{<TARGET>}
+import libs = libcpp-base64%lib{cpp-base64}
 ```
 
 
@@ -25,18 +28,12 @@ import libs = libcpp-base64%lib{<TARGET>}
 This package provides the following importable targets:
 
 ```
-lib{<TARGET>}
+lib{cpp-base64}
 ```
 
-<DESCRIPTION-OF-IMPORTABLE-TARGETS>
+`lib{cpp-base64}` is the compiled encode/decode library.
 
 
 ## Configuration variables
 
-This package provides the following configuration variables:
-
-```
-[bool] config.libcpp_base64.<VARIABLE> ?= false
-```
-
-<DESCRIPTION-OF-CONFIG-VARIABLES>
+This package provides no configuration variables.
